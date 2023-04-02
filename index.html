@@ -57,17 +57,12 @@
                 aria-label="ABC Interiors..."
                 aria-describedby="button-addon2"
               />
-              <button
-                class="btn btn-primary"
-                type="button"
-                id="add-company"
-              >
+              <button class="btn btn-primary" type="button" id="add-company">
                 Add
               </button>
             </div>
 
-            <ul class="list-group" id="companies-list">
-              </ul>
+            <ul class="list-group" id="companies-list"></ul>
           </div>
         </div>
       </div>
@@ -89,57 +84,98 @@
           class="accordion-collapse collapse"
           data-bs-parent="#accordionExample"
         >
-            <div class="accordion-body">
-                <div class="mb-3 row">
-                    <label for="item-name" class="col-sm-2 col-form-label">Name</label>
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" id="item-name" placeholder="Item 1...">
-                    </div>
-                  </div>
-
-                  <div class="mb-3 row">
-                    <label for="item-description" class="col-sm-2 col-form-label">Description</label>
-                    <div class="col-sm-10">
-                      <textarea class="form-control" id="item-description" placeholder="Item Description..."></textarea>
-                    </div>
-                  </div>
-
-                  <div class="mb-3 row">
-                    <label for="item-quantity" class="col-sm-2 col-form-label">Quantity</label>
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" id="item-quantity" placeholder="Quantity...">
-                    </div>
-                  </div>
-                
-                  <div class="mb-3 row">
-                    <label for="item-unit" class="col-sm-2 col-form-label">Unit</label>
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" id="item-unit" placeholder="Unit...">
-                    </div>
-                  </div>
-
-                  <div class="mb-3 row">
-                    <label for="item-rate" class="col-sm-2 col-form-label">Rate</label>
-                    <div class="col-sm-5">
-                      <input type="text" class="form-control" id="item-rate-range-1" placeholder="Minimum Amount...">
-                    </div>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" id="item-rate-range-2" placeholder="Maximum Amount...">
-                      </div>
-                  </div>
-                
-                  <div  class="mb-3">
-                    <button
-                    class="btn btn-primary col-sm-2"
-                    type="button"
-                    id="add-company"
-                  >
-                    Add
-                  </button>
-                  </div>
+          <div class="accordion-body">
+            <div class="mb-3 row">
+              <label for="item-name" class="col-sm-2 col-form-label"
+                >Name</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="item-name"
+                  placeholder="Item 1..."
+                />
+              </div>
             </div>
+
+            <div class="mb-3 row">
+              <label for="item-description" class="col-sm-2 col-form-label"
+                >Description</label
+              >
+              <div class="col-sm-10">
+                <textarea
+                  class="form-control"
+                  id="item-description"
+                  placeholder="Item Description..."
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="mb-3 row">
+              <label for="item-quantity" class="col-sm-2 col-form-label"
+                >Quantity</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="item-quantity"
+                  placeholder="Quantity..."
+                />
+              </div>
+            </div>
+
+            <div class="mb-3 row">
+              <label for="item-unit" class="col-sm-2 col-form-label"
+                >Unit</label
+              >
+              <div class="col-sm-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="item-unit"
+                  placeholder="Unit..."
+                />
+              </div>
+            </div>
+
+            <div class="mb-3 row">
+              <label for="item-rate" class="col-sm-2 col-form-label"
+                >Rate</label
+              >
+              <div class="col-sm-5">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="item-rate-range-1"
+                  placeholder="Minimum Amount..."
+                />
+              </div>
+              <div class="col-sm-5">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="item-rate-range-2"
+                  placeholder="Maximum Amount..."
+                />
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <button
+                class="btn btn-primary col-sm-2"
+                type="button"
+                id="add-company"
+              >
+                Add
+              </button>
+            </div>
+
+            <ul class="list-group" id="items-list"></ul>
           </div>
         </div>
+      </div>
       <div class="accordion-item">
         <h2 class="accordion-header">
           <button
@@ -158,7 +194,51 @@
           class="accordion-collapse collapse"
           data-bs-parent="#accordionExample"
         >
-          <div class="accordion-body"></div>
+          <div class="accordion-body">
+            <div class="mb-3 row">
+                <label for="pdf-header" class="col-sm-2 col-form-label"
+                  >Pdf Header</label
+                >
+                <div class="col-sm-10">
+                  <textarea
+                    class="form-control"
+                    id="pdf-header"
+                    placeholder="Pdf Header..."
+                  ></textarea>
+                </div>
+              </div>
+
+              <div class="mb-3 row">
+                <label for="pdf-footer" class="col-sm-2 col-form-label"
+                  >Pdf Footer</label
+                >
+                <div class="col-sm-10">
+                  <textarea
+                    class="form-control"
+                    id="pdf-footer"
+                    placeholder="Pdf Footer..."
+                  ></textarea>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <button
+                  class="btn btn-secondary col-sm-2"
+                  type="button"
+                  id="generate-pdf"
+                >
+                  Preview Pdf
+                </button>
+
+                <button
+                  class="btn btn-primary col-sm-2"
+                  type="button"
+                  id="generate-pdf"
+                >
+                  Generate Pdf
+                </button>
+              </div>
+          </div>
         </div>
       </div>
     </div>
