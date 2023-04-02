@@ -10,7 +10,6 @@ document.getElementById("add-company").addEventListener("click", function (e) {
   const companyName = document.getElementById("company-name").value;
 
   if (companyName) {
-
     addCompanyNameInTheDb(companyName);
     renderCompanyList();
     document.getElementById("company-name").value = "";
@@ -18,27 +17,42 @@ document.getElementById("add-company").addEventListener("click", function (e) {
 });
 
 document
-  .getElementById("delete-company")
-  .addEventListener("click", function (e) {});
+  .getElementById("companies-list")
+  .addEventListener("click", function (e) {
+    const companyID = e.target.dataset.companyid;
+    if (companyID) {
+      removeCompanyNameFromDb(companyID);
+      renderCompanyList();
+    }
+  });
 
 function renderCompanyList() {
-    const companies = localStorage.getItem("company-names");
+  let companies = localStorage.getItem("company-names");
 
-    if (companies) {
-        const d = JSON.parse(companies);
-        let html = "";
+  if (companies) {
+    const d = JSON.parse(companies);
+    let html = "";
 
-        d.forEach(element => {
-            html += getCompanyNameListItem(d);
-        });
+    d.forEach((element) => {
+      html += getCompanyNameListItem(element);
+    });
 
-        document.getElementById("companies-list").innerHTML += comapnyNameHTML;
-    }
+    document.getElementById("companies-list").innerHTML = html;
+  }
+}
+
+function removeCompanyNameFromDb(companyId) {
+  let companies = localStorage.getItem("company-names");
+  if (companies) {
+    companies = JSON.parse(companies).filter((c) => c.id !== companyId);
+  }
+  localStorage.setItem("company-names", JSON.stringify(companies));
 }
 
 function addCompanyNameInTheDb(company) {
-  const companies = localStorage.getItem("company-names");
+  let companies = localStorage.getItem("company-names");
   if (companies) {
+    companies = JSON.parse(companies);
     companies = [...companies, { name: company, id: getGUID() }];
   } else {
     companies = [{ name: company, id: getGUID() }];
