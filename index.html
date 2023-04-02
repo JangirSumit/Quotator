@@ -28,7 +28,7 @@
       </div>
     </nav>
 
-    <div class="accordion" id="accordionExample">
+    <div class="accordion container" id="accordionExample">
       <div class="accordion-item">
         <h2 class="accordion-header">
           <button
@@ -48,6 +48,31 @@
           data-bs-parent="#accordionExample"
         >
           <div class="accordion-body">
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="ABC Interiors..."
+                aria-label="ABC Interiors..."
+                aria-describedby="button-addon2"
+              />
+              <button
+                class="btn btn-outline-primary"
+                type="button"
+                id="add-company"
+              >
+                Add
+              </button>
+            </div>
+
+            <ul class="list-group" id="companies-list">
+                <!-- <li
+                  class="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  A list item
+                  <span class="badge bg-primary rounded-pill">14</span>
+                </li> -->
+              </ul>
           </div>
         </div>
       </div>
@@ -61,17 +86,15 @@
             aria-expanded="false"
             aria-controls="collapseTwo"
           >
-          <b>Step #2</b> - Add Items
-        </button>
+            <b>Step #2</b> - Add Items
+          </button>
         </h2>
         <div
           id="collapseTwo"
           class="accordion-collapse collapse"
           data-bs-parent="#accordionExample"
         >
-          <div class="accordion-body">
-           
-          </div>
+          <div class="accordion-body"></div>
         </div>
       </div>
       <div class="accordion-item">
@@ -84,17 +107,15 @@
             aria-expanded="false"
             aria-controls="collapseThree"
           >
-          <b>Step #3</b> - Generate Quotations
-        </button>
+            <b>Step #3</b> - Generate Quotations
+          </button>
         </h2>
         <div
           id="collapseThree"
           class="accordion-collapse collapse"
           data-bs-parent="#accordionExample"
         >
-          <div class="accordion-body">
-           
-          </div>
+          <div class="accordion-body"></div>
         </div>
       </div>
     </div>
