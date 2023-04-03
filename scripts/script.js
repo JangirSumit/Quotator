@@ -1,3 +1,6 @@
+const COMPANY_NAMES_KEY = COMPANY_NAMES_KEY;
+const ITEM_DETAILS_KEY = "item-details";
+
 function getGUID() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
     var r = (Math.random() * 16) | 0,
@@ -26,8 +29,23 @@ document
     }
   });
 
+document.getElementById("add-company").addEventListener("click", function (e) {
+  const name = document.getElementById("item-name").value;
+  const description = document.getElementById("item-description").value;
+  const quantity = document.getElementById("item-quantity").value;
+  const unit = document.getElementById("item-unit").value;
+  const rateRange1 = document.getElementById("item-rate-range-1").value;
+  const rateRange2 = document.getElementById("item-rate-range-2").value;
+
+  const isValid = name && description && quantity && unit && rateRange1;
+
+  if (isValid) {
+    addItemInTheDb(name, description, quantity, unit, rateRange1, rateRange2);
+  }
+});
+
 function renderCompanyList() {
-  let companies = localStorage.getItem("company-names");
+  let companies = localStorage.getItem(COMPANY_NAMES_KEY);
 
   if (companies) {
     const d = JSON.parse(companies);
@@ -42,23 +60,59 @@ function renderCompanyList() {
 }
 
 function removeCompanyNameFromDb(companyId) {
-  let companies = localStorage.getItem("company-names");
+  let companies = localStorage.getItem(COMPANY_NAMES_KEY);
   if (companies) {
     companies = JSON.parse(companies).filter((c) => c.id !== companyId);
   }
-  localStorage.setItem("company-names", JSON.stringify(companies));
+  localStorage.setItem(COMPANY_NAMES_KEY, JSON.stringify(companies));
 }
 
 function addCompanyNameInTheDb(company) {
-  let companies = localStorage.getItem("company-names");
+  const newRecord = { id: getGUID(), name: company };
+
+  let companies = localStorage.getItem(COMPANY_NAMES_KEY);
   if (companies) {
     companies = JSON.parse(companies);
-    companies = [...companies, { name: company, id: getGUID() }];
+    companies = [...companies, newRecord];
   } else {
-    companies = [{ name: company, id: getGUID() }];
+    companies = [newRecord];
   }
 
-  localStorage.setItem("company-names", JSON.stringify(companies));
+  localStorage.setItem(COMPANY_NAMES_KEY, JSON.stringify(companies));
+}
+
+function addItemInTheDb(
+  name,
+  description,
+  quantity,
+  unit,
+  rateRange1,
+  rateRange2
+) {
+  const newRecord = {
+    id: getGUID(),
+    name,
+    description,
+    quantity,
+    unit,
+    rateRange1,
+    rateRange2,
+  };
+
+  let items = localStorage.getItem(ITEM_DETAILS_KEY);
+  if (items) {
+    items = JSON.parse(items);
+    items = [
+      ...items,
+      newRecord,
+    ];
+  } else {
+    companies = [
+      newRecord,
+    ];
+  }
+
+  localStorage.setItem(ITEM_DETAILS_KEY, JSON.stringify(companies));
 }
 
 function getCompanyNameListItem(data) {
