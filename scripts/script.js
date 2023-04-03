@@ -1,6 +1,9 @@
 const COMPANY_NAMES_KEY = "company-names";
 const ITEM_DETAILS_KEY = "item-details";
 
+renderCompanyList();
+renderItemList();
+
 function getGUID() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
     var r = (Math.random() * 16) | 0,
@@ -64,9 +67,9 @@ function renderItemList() {
   let items = localStorage.getItem(ITEM_DETAILS_KEY);
 
   if (items) {
-    const d = JSON.parse(companies);
+    const d = JSON.parse(items);
 
-    const itemListHeader = getItemListHeader(data);
+    const itemListHeader = getItemListHeader(d[0]);
 
     let body = itemListHeader + "<tbody>";
 
@@ -152,11 +155,13 @@ function getCompanyNameListItem(data) {
 function getItemListItem(data, index) {
   return `
       <tr>
-      <th scope="row">${index + 1}</th>
+      <td scope="row">${index + 1}</td>
       <td>${data.name}</td>
       <td>${data.description}</td>
       <td>${data.quantity}</td>
       <td>${data.unit}</td>
+      <td>${data.rateRange1}</td>
+      <td>${data.rateRange2}</td>
       <td>${getRandomRate(data.rateRange1, data.rateRange2)}</td>
       <td data-item-id="${data.id}">x</td>
     </tr>
@@ -164,20 +169,23 @@ function getItemListItem(data, index) {
 }
 
 function getRandomRate(rateRange1, rateRange2) {
-  if (!!rateRange2) {
+  if (!rateRange2) {
     return rateRange1;
   }
 
-  return Math.ceil(Math.random() * (rateRange2 - rateRange1) + rateRange1);
+  return Math.ceil(Math.random() * (parseFloat(rateRange2) - parseFloat(rateRange1)) + parseFloat(rateRange1));
 }
 
 function getItemListHeader(data) {
   let ths = `<th scope="col">#</th>`;
 
   Object.keys(data).forEach((d) => {
-    ths += `<th scope="col">${d}</th>`;
+    if (d != "id") {
+      ths += `<th scope="col">${d}</th>`;
+    }
+    
   });
-  ths += `<th scope="col"></th>`;
+  ths += `<th scope="col">Rate</th><th scope="col"></th>`;
 
   return `
   <thead>
