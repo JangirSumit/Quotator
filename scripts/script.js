@@ -153,17 +153,21 @@ function getCompanyNameListItem(data) {
 }
 
 function getItemListItem(data, index) {
+  const rate = getRandomRate(data.rateRange1, data.rateRange2);
   return `
       <tr>
       <td scope="row">${index + 1}</td>
       <td>${data.name}</td>
-      <td>${data.description}</td>
+      <td style="max-width: 400px;">${data.description}</td>
       <td>${data.quantity}</td>
       <td>${data.unit}</td>
-      <td>${data.rateRange1}</td>
-      <td>${data.rateRange2}</td>
-      <td>${getRandomRate(data.rateRange1, data.rateRange2)}</td>
-      <td data-item-id="${data.id}">x</td>
+      <td>${rate}</td>
+      <td>${rate * data.quantity}</td>
+      <td data-item-id="${
+        data.id
+      }"><span class="badge bg-primary" id="delete-company" data-companyId="${
+    data.id
+  }">X</span></td>
     </tr>
     `;
 }
@@ -173,19 +177,23 @@ function getRandomRate(rateRange1, rateRange2) {
     return rateRange1;
   }
 
-  return Math.ceil(Math.random() * (parseFloat(rateRange2) - parseFloat(rateRange1)) + parseFloat(rateRange1));
+  return Math.ceil(
+    Math.random() * (parseFloat(rateRange2) - parseFloat(rateRange1)) +
+      parseFloat(rateRange1)
+  );
 }
 
 function getItemListHeader(data) {
   let ths = `<th scope="col">#</th>`;
 
   Object.keys(data).forEach((d) => {
-    if (d != "id") {
-      ths += `<th scope="col">${d}</th>`;
+    if (d != "id" && d != "rateRange1" && d != "rateRange2") {
+      ths += `<th scope="col">${capitalizeString(d)}</th>`;
     }
-    
   });
-  ths += `<th scope="col">Rate</th><th scope="col"></th>`;
+  ths += `<th scope="col">Rate</th>
+          <th scope="col">Total</th>
+          <th scope="col"></th>`;
 
   return `
   <thead>
@@ -194,4 +202,8 @@ function getItemListHeader(data) {
                 </tr>
               </thead>
   `;
+}
+
+function capitalizeString(str) {
+  return str[0].toUpperCase() + str.substring(1);
 }
