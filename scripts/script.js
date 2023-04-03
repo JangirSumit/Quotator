@@ -41,6 +41,7 @@ document.getElementById("add-company").addEventListener("click", function (e) {
 
   if (isValid) {
     addItemInTheDb(name, description, quantity, unit, rateRange1, rateRange2);
+    renderItemList();
   }
 });
 
@@ -59,12 +60,40 @@ function renderCompanyList() {
   }
 }
 
+function renderItemList() {
+  let items = localStorage.getItem(ITEM_DETAILS_KEY);
+
+  if (condition) {
+    const d = JSON.parse(companies);
+
+    const itemListHeader = getItemListHeader(data);
+
+    let body = "<tbody>";
+
+    d.forEach((element, index) => {
+      body += getItemListItem(element, index);
+    });
+
+    body += "</tbody>";
+
+    document.getElementById("items-list").innerHTML = html;
+  }
+}
+
 function removeCompanyNameFromDb(companyId) {
   let companies = localStorage.getItem(COMPANY_NAMES_KEY);
   if (companies) {
     companies = JSON.parse(companies).filter((c) => c.id !== companyId);
   }
   localStorage.setItem(COMPANY_NAMES_KEY, JSON.stringify(companies));
+}
+
+function removeItemFromDb(itemId) {
+  let items = localStorage.getItem(ITEM_DETAILS_KEY);
+  if (items) {
+    items = JSON.parse(companies).filter((c) => c.id !== itemId);
+  }
+  localStorage.setItem(ITEM_DETAILS_KEY, JSON.stringify(items));
 }
 
 function addCompanyNameInTheDb(company) {
@@ -102,14 +131,9 @@ function addItemInTheDb(
   let items = localStorage.getItem(ITEM_DETAILS_KEY);
   if (items) {
     items = JSON.parse(items);
-    items = [
-      ...items,
-      newRecord,
-    ];
+    items = [...items, newRecord];
   } else {
-    companies = [
-      newRecord,
-    ];
+    companies = [newRecord];
   }
 
   localStorage.setItem(ITEM_DETAILS_KEY, JSON.stringify(companies));
@@ -123,4 +147,43 @@ function getCompanyNameListItem(data) {
                   <span class="badge bg-primary" id="delete-company" data-companyId="${data.id}">X</span>
                 </li>
     `;
+}
+
+function getItemListItem(data, index) {
+  return `
+      <tr>
+      <th scope="row">${index + 1}</th>
+      <td>${data.name}</td>
+      <td>${data.description}</td>
+      <td>${data.quantity}</td>
+      <td>${data.unit}</td>
+      <td>${getRandomRate(data.rateRange1, data.rateRange2)}</td>
+      <td data-item-id="${data.id}">x</td>
+    </tr>
+    `;
+}
+
+function getRandomRate(rateRange1, rateRange2) {
+  if (!!rateRange2) {
+    return rateRange1;
+  }
+
+  return Math.ceil(Math.random() * (rateRange2 - rateRange1) + rateRange1);
+}
+
+function getItemListHeader(data) {
+  let ths = `<th scope="col">#</th>`;
+
+  Object.keys(data).forEach((d) => {
+    ths += `<th scope="col">${d}</th>`;
+  });
+  ths += `<th scope="col"></th>`;
+
+  return `
+  <thead>
+                <tr>
+                  ${ths}
+                </tr>
+              </thead>
+  `;
 }
