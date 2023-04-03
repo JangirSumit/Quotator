@@ -32,6 +32,16 @@ document
     }
   });
 
+  document
+  .querySelector("table")
+  .addEventListener("click", function (e) {
+    const itemId = e.target.dataset.itemid;
+    if (itemId) {
+      removeItemFromDb(itemId);
+      renderItemList();
+    }
+  });
+
 document.getElementById("add-item").addEventListener("click", function (e) {
   const name = document.getElementById("item-name").value;
   const description = document.getElementById("item-description").value;
@@ -73,7 +83,7 @@ function renderItemList() {
 
     let body = itemListHeader + "<tbody>";
 
-    d.forEach((element, index) => {
+    d.forEach((element, index) => { 
       body += getItemListItem(element, index);
     });
 
@@ -94,7 +104,7 @@ function removeCompanyNameFromDb(companyId) {
 function removeItemFromDb(itemId) {
   let items = localStorage.getItem(ITEM_DETAILS_KEY);
   if (items) {
-    items = JSON.parse(companies).filter((c) => c.id !== itemId);
+    items = JSON.parse(items).filter((c) => c.id !== itemId);
   }
   localStorage.setItem(ITEM_DETAILS_KEY, JSON.stringify(items));
 }
@@ -147,7 +157,7 @@ function getCompanyNameListItem(data) {
                 <li data-companyId="${data.id}"
                   class="list-group-item d-flex justify-content-between align-items-center">
                  ${data.name}
-                  <span class="badge bg-primary" id="delete-company" data-companyId="${data.id}">X</span>
+                  <span class="badge bg-primary cursor-pointer" id="delete-company" data-companyId="${data.id}">X</span>
                 </li>
     `;
 }
@@ -165,7 +175,7 @@ function getItemListItem(data, index) {
       <td>${rate * data.quantity}</td>
       <td data-item-id="${
         data.id
-      }"><span class="badge bg-primary" id="delete-company" data-companyId="${
+      }"><span class="badge bg-primary cursor-pointer" id="delete-item" data-itemId="${
     data.id
   }">X</span></td>
     </tr>
