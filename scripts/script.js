@@ -1,4 +1,4 @@
-const COMPANY_NAMES_KEY = COMPANY_NAMES_KEY;
+const COMPANY_NAMES_KEY = "company-names";
 const ITEM_DETAILS_KEY = "item-details";
 
 function getGUID() {
@@ -29,7 +29,7 @@ document
     }
   });
 
-document.getElementById("add-company").addEventListener("click", function (e) {
+document.getElementById("add-item").addEventListener("click", function (e) {
   const name = document.getElementById("item-name").value;
   const description = document.getElementById("item-description").value;
   const quantity = document.getElementById("item-quantity").value;
@@ -63,12 +63,12 @@ function renderCompanyList() {
 function renderItemList() {
   let items = localStorage.getItem(ITEM_DETAILS_KEY);
 
-  if (condition) {
+  if (items) {
     const d = JSON.parse(companies);
 
     const itemListHeader = getItemListHeader(data);
 
-    let body = "<tbody>";
+    let body = itemListHeader + "<tbody>";
 
     d.forEach((element, index) => {
       body += getItemListItem(element, index);
@@ -76,7 +76,7 @@ function renderItemList() {
 
     body += "</tbody>";
 
-    document.getElementById("items-list").innerHTML = html;
+    document.getElementById("items-list").innerHTML = body;
   }
 }
 
@@ -133,10 +133,10 @@ function addItemInTheDb(
     items = JSON.parse(items);
     items = [...items, newRecord];
   } else {
-    companies = [newRecord];
+    items = [newRecord];
   }
 
-  localStorage.setItem(ITEM_DETAILS_KEY, JSON.stringify(companies));
+  localStorage.setItem(ITEM_DETAILS_KEY, JSON.stringify(items));
 }
 
 function getCompanyNameListItem(data) {
