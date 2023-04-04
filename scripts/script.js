@@ -32,15 +32,13 @@ document
     }
   });
 
-  document
-  .querySelector("table")
-  .addEventListener("click", function (e) {
-    const itemId = e.target.dataset.itemid;
-    if (itemId) {
-      removeItemFromDb(itemId);
-      renderItemList();
-    }
-  });
+document.querySelector("table").addEventListener("click", function (e) {
+  const itemId = e.target.dataset.itemid;
+  if (itemId) {
+    removeItemFromDb(itemId);
+    renderItemList();
+  }
+});
 
 document.getElementById("add-item").addEventListener("click", function (e) {
   const name = document.getElementById("item-name").value;
@@ -60,37 +58,36 @@ document.getElementById("add-item").addEventListener("click", function (e) {
 
 function renderCompanyList() {
   let companies = localStorage.getItem(COMPANY_NAMES_KEY);
+  const d = JSON.parse(companies);
+  let html = "";
 
-  if (companies) {
-    const d = JSON.parse(companies);
-    let html = "";
-
+  if (d && d.length) {
     d.forEach((element) => {
       html += getCompanyNameListItem(element);
     });
-
-    document.getElementById("companies-list").innerHTML = html;
   }
+
+  document.getElementById("companies-list").innerHTML = html;
 }
 
 function renderItemList() {
   let items = localStorage.getItem(ITEM_DETAILS_KEY);
+  const d = JSON.parse(items);
+  let body = "";
 
-  if (items) {
-    const d = JSON.parse(items);
+  if (d && d.length) {
+       const itemListHeader = getItemListHeader(d[0]);
 
-    const itemListHeader = getItemListHeader(d[0]);
+    body = itemListHeader + "<tbody>";
 
-    let body = itemListHeader + "<tbody>";
-
-    d.forEach((element, index) => { 
+    d.forEach((element, index) => {
       body += getItemListItem(element, index);
     });
 
     body += "</tbody>";
-
-    document.getElementById("items-list").innerHTML = body;
   }
+
+  document.getElementById("items-list").innerHTML = body;
 }
 
 function removeCompanyNameFromDb(companyId) {
@@ -187,10 +184,12 @@ function getRandomRate(rateRange1, rateRange2) {
     return rateRange1;
   }
 
-  return Math.ceil(
+  const newRate = Math.ceil(
     Math.random() * (parseFloat(rateRange2) - parseFloat(rateRange1)) +
       parseFloat(rateRange1)
   );
+
+  return Math.ceil(newRate / 100) * 100;
 }
 
 function getItemListHeader(data) {
