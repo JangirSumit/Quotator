@@ -136,6 +136,7 @@ function addItemInTheDb(
     unit,
     rateRange1,
     rateRange2,
+    newRate: getRandomRate(rateRange1, rateRange2)
   };
 
   let items = localStorage.getItem(ITEM_DETAILS_KEY);
@@ -160,7 +161,6 @@ function getCompanyNameListItem(data) {
 }
 
 function getItemListItem(data, index) {
-  const rate = getRandomRate(data.rateRange1, data.rateRange2);
   return `
       <tr>
       <td scope="row">${index + 1}</td>
@@ -168,8 +168,8 @@ function getItemListItem(data, index) {
       <td style="max-width: 400px;">${data.description}</td>
       <td>${data.quantity}</td>
       <td>${data.unit}</td>
-      <td>${rate}</td>
-      <td>${rate * data.quantity}</td>
+      <td>${data.newRate}</td>
+      <td>${data.newRate * data.quantity}</td>
       <td data-item-id="${
         data.id
       }"><span class="badge bg-primary cursor-pointer" id="delete-item" data-itemId="${
@@ -197,10 +197,13 @@ function getItemListHeader(data) {
 
   Object.keys(data).forEach((d) => {
     if (d != "id" && d != "rateRange1" && d != "rateRange2") {
+      if (d == "newRate") {
+        d = "Unit Price"
+      }
       ths += `<th scope="col">${capitalizeString(d)}</th>`;
     }
   });
-  ths += `<th scope="col">Rate</th>
+  ths += `
           <th scope="col">Total</th>
           <th scope="col"></th>`;
 
