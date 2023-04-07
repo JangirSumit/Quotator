@@ -50,7 +50,11 @@
           data-bs-parent="#accordionExample"
         >
           <div class="accordion-body">
-            <div class="input-group mb-3">
+            <div class="mb-3 row">
+              <label for="Company-name" class="col-sm-2 col-form-label"
+                >Name</label
+              >
+              <div class="col-sm-10">
               <input
                 id="company-name"
                 type="text"
@@ -59,10 +63,43 @@
                 aria-label="ABC Interiors..."
                 aria-describedby="button-addon2"
               />
-              <button class="btn btn-primary" type="button" id="add-company">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="company-name" class="col-sm-2 col-form-label"
+              >GST Number</label
+            >
+            <div class="col-sm-10">
+            <input
+              id="gst-number"
+              type="text"
+              class="form-control"
+              placeholder="Company GST Number..."
+              aria-label="Company GST Number..."
+              aria-describedby="button-addon2"
+            />
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="company-address" class="col-sm-2 col-form-label"
+            >Address</label
+          >
+          <div class="col-sm-10">
+            <textarea
+              class="form-control"
+              id="company-address"
+              placeholder="Company Address..."
+            ></textarea>
+          </div>
+        </div>
+            <div class="mb-3">
+              <button class="btn btn-primary col-sm-2"
+              type="button"
+              id="add-company">
                 Add
               </button>
             </div>
+          
 
             <ul class="list-group" id="companies-list"></ul>
           </div>

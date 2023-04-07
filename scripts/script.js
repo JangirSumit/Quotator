@@ -1,4 +1,4 @@
-const COMPANY_NAMES_KEY = "company-names";
+const COMPANY_DETAILS_KEY = "company-names";
 const ITEM_DETAILS_KEY = "item-details";
 
 renderCompanyList();
@@ -57,7 +57,7 @@ document.getElementById("add-item").addEventListener("click", function (e) {
 });
 
 function renderCompanyList() {
-  let companies = localStorage.getItem(COMPANY_NAMES_KEY);
+  let companies = localStorage.getItem(COMPANY_DETAILS_KEY);
   const d = JSON.parse(companies);
   let html = "";
 
@@ -91,11 +91,11 @@ function renderItemList() {
 }
 
 function removeCompanyNameFromDb(companyId) {
-  let companies = localStorage.getItem(COMPANY_NAMES_KEY);
+  let companies = localStorage.getItem(COMPANY_DETAILS_KEY);
   if (companies) {
     companies = JSON.parse(companies).filter((c) => c.id !== companyId);
   }
-  localStorage.setItem(COMPANY_NAMES_KEY, JSON.stringify(companies));
+  localStorage.setItem(COMPANY_DETAILS_KEY, JSON.stringify(companies));
 }
 
 function removeItemFromDb(itemId) {
@@ -109,7 +109,7 @@ function removeItemFromDb(itemId) {
 function addCompanyNameInTheDb(company) {
   const newRecord = { id: getGUID(), name: company };
 
-  let companies = localStorage.getItem(COMPANY_NAMES_KEY);
+  let companies = localStorage.getItem(COMPANY_DETAILS_KEY);
   if (companies) {
     companies = JSON.parse(companies);
     companies = [...companies, newRecord];
@@ -117,7 +117,7 @@ function addCompanyNameInTheDb(company) {
     companies = [newRecord];
   }
 
-  localStorage.setItem(COMPANY_NAMES_KEY, JSON.stringify(companies));
+  localStorage.setItem(COMPANY_DETAILS_KEY, JSON.stringify(companies));
 }
 
 function addItemInTheDb(
