@@ -14,9 +14,13 @@ function getGUID() {
 
 document.getElementById("add-company").addEventListener("click", function (e) {
   const companyName = document.getElementById("company-name").value;
+  const gstNumber = document.getElementById("gst-number").value;
+  const companyAddress = document.getElementById("company-address").value;
 
-  if (companyName) {
-    addCompanyNameInTheDb(companyName);
+  const isValid = companyName && gstNumber && companyAddress;
+
+  if (isValid) {
+    addCompanyNameInTheDb(companyName, gstNumber, companyAddress);
     renderCompanyList();
     document.getElementById("company-name").value = "";
   }
